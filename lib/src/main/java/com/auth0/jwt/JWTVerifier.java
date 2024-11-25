@@ -46,7 +46,11 @@ public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
     }
 
     /**
-     * {@link Verification} implementation that accepts all the expected Claim values for verification.
+     * {@link Verification} implementation that accepts all the expected Claim values for verification, and
+     * builds a {@link com.auth0.jwt.interfaces.JWTVerifier} used to verify a JWT's signature and expected claims.
+     *
+     * Note that this class is <strong>not</strong> thread-safe. Calling {@link #build()} returns an instance of
+     * {@link com.auth0.jwt.interfaces.JWTVerifier} which can be reused.
      */
     public static class BaseVerification implements Verification {
         private final Algorithm algorithm;
@@ -342,7 +346,7 @@ public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
                     throw new TokenExpiredException(String.format("The Token has expired on %s.", claimVal), claimVal);
                 }
             } else {
-                isValid = assertInstantIsPast(claimVal, leeway, now);
+                isValid = assertInstantIsLessThanOrEqualToNow(claimVal, leeway, now);
                 if (!isValid) {
                     throw new IncorrectClaimException(
                             String.format("The Token can't be used before %s.", claimVal), claimName, claim);
@@ -352,20 +356,27 @@ public final class JWTVerifier implements com.auth0.jwt.interfaces.JWTVerifier {
         }
 
         private boolean assertInstantIsFuture(Instant claimVal, long leeway, Instant now) {
-            return !(claimVal != null && now.minus(Duration.ofSeconds(leeway)).isAfter(claimVal));
+            return claimVal == null || now.minus(Duration.ofSeconds(leeway)).isBefore(claimVal);
         }
 
-        private boolean assertInstantIsPast(Instant claimVal, long leeway, Instant now) {
+        private boolean assertInstantIsLessThanOrEqualToNow(Instant claimVal, long leeway, Instant now) {
             return !(claimVal != null && now.plus(Duration.ofSeconds(leeway)).isBefore(claimVal));
         }
 
         private boolean assertValidAudienceClaim(
-                List<String> audience,
-                List<String> values,
+                List<String> actualAudience,
+                List<String> expectedAudience,
                 boolean shouldContainAll
         ) {
-            return !(audience == null || (shouldContainAll && !audience.containsAll(values))
-                    || (!shouldContainAll && Collections.disjoint(audience, values)));
+            if (actualAudience == null || expectedAudience == null) {
+                return false;
+            }
+
+            if (shouldContainAll) {
+                return actualAudience.containsAll(expectedAudience);
+            } else {
+                return !Collections.disjoint(actualAudience, expectedAudience);
+            }
         }
 
         private void assertPositive(long leeway) {

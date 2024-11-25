@@ -7,6 +7,7 @@ import com.auth0.jwt.impl.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.nio.charset.StandardCharsets;
@@ -31,12 +32,14 @@ public final class JWTCreator {
     private static final SimpleModule module;
 
     static {
-        mapper = new ObjectMapper();
         module = new SimpleModule();
         module.addSerializer(PayloadClaimsHolder.class, new PayloadSerializer());
         module.addSerializer(HeaderClaimsHolder.class, new HeaderSerializer());
-        mapper.registerModule(module);
-        mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
+
+        mapper = JsonMapper.builder()
+                .configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true)
+                .build()
+                .registerModule(module);
     }
 
     private JWTCreator(Algorithm algorithm, Map<String, Object> headerClaims, Map<String, Object> payloadClaims)
@@ -68,8 +71,8 @@ public final class JWTCreator {
         private final Map<String, Object> headerClaims;
 
         Builder() {
-            this.payloadClaims = new HashMap<>();
-            this.headerClaims = new HashMap<>();
+            this.payloadClaims = new LinkedHashMap<>();
+            this.headerClaims = new LinkedHashMap<>();
         }
 
         /**
@@ -93,6 +96,27 @@ public final class JWTCreator {
             }
 
             return this;
+        }
+
+        /**
+         * Add specific Claims to set as the Header.
+         * If provided json is null then nothing is changed
+         *
+         * @param headerClaimsJson the values to use as Claims in the token's Header.
+         * @return this same Builder instance.
+         * @throws IllegalArgumentException if json value has invalid structure
+         */
+        public Builder withHeader(String headerClaimsJson) throws IllegalArgumentException {
+            if (headerClaimsJson == null) {
+                return this;
+            }
+
+            try {
+                Map<String, Object> headerClaims = mapper.readValue(headerClaimsJson, LinkedHashMap.class);
+                return withHeader(headerClaims);
+            } catch (JsonProcessingException e) {
+                throw new IllegalArgumentException("Invalid header JSON", e);
+            }
         }
 
         /**
@@ -464,6 +488,33 @@ public final class JWTCreator {
             return this;
         }
 
+        /**
+         * Add specific Claims to set as the Payload. If the provided json is null then
+         * nothing is changed.
+         *
+         * <p>
+         * If any of the claims are invalid, none will be added.
+         * </p>
+         *
+         * @param payloadClaimsJson the values to use as Claims in the token's payload.
+         * @return this same Builder instance.
+         * @throws IllegalArgumentException if any of the claim keys or null,
+         *                                  or if the values are not of a supported type,
+         *                                  or if json value has invalid structure.
+         */
+        public Builder withPayload(String payloadClaimsJson) throws IllegalArgumentException {
+            if (payloadClaimsJson == null) {
+                return this;
+            }
+
+            try {
+                Map<String, Object> payloadClaims =  mapper.readValue(payloadClaimsJson, LinkedHashMap.class);
+                return withPayload(payloadClaims);
+            } catch (JsonProcessingException e) {
+                throw new IllegalArgumentException("Invalid payload JSON", e);
+            }
+        }
+
         private boolean validatePayload(Map<String, ?> payload) {
             for (Map.Entry<String, ?> entry : payload.entrySet()) {
                 String key = entry.getKey();
@@ -489,7 +540,7 @@ public final class JWTCreator {
                     return false;
                 }
 
-                if (entry.getKey() == null || !(entry.getKey() instanceof String)) {
+                if (!(entry.getKey() instanceof String)) {
                     return false;
                 }
             }
@@ -531,7 +582,7 @@ public final class JWTCreator {
         }
 
         /**
-         * Creates a new JWT and signs is with the given algorithm.
+         * Creates a new JWT and signs it with the given algorithm.
          *
          * @param algorithm used to sign the JWT
          * @return a new JWT token
