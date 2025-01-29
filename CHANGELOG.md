@@ -1,5 +1,113 @@
 # Change Log
 
+## [4.5.0](https://github.com/auth0/java-jwt/tree/4.5.0) (2025-01-29)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.4.0...4.5.0)
+
+**Added**
+- Upgraded Plugin [\#711](https://github.com/auth0/java-jwt/pull/711) ([tanya732](https://github.com/tanya732))
+- Fix jackson vuln [\#705](https://github.com/auth0/java-jwt/pull/705) ([tanya732](https://github.com/tanya732))
+- Fix typo in example code [\#682](https://github.com/auth0/java-jwt/pull/682) ([kasperkarlsson](https://github.com/kasperkarlsson))
+- Remove dead README links [\#676](https://github.com/auth0/java-jwt/pull/676) ([jimmyjames](https://github.com/jimmyjames))
+- Fix typo on a comment in JWTCreator.java [\#672](https://github.com/auth0/java-jwt/pull/672) ([sgc109](https://github.com/sgc109))
+- Remove CircleCI [\#670](https://github.com/auth0/java-jwt/pull/670) ([jimmyjames](https://github.com/jimmyjames))
+- Empty string audience claim should be deserialized as empty string [\#663](https://github.com/auth0/java-jwt/pull/663) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- empty expected audience array should throw InvalidClaimException [\#679](https://github.com/auth0/java-jwt/pull/679) ([jimmyjames](https://github.com/jimmyjames))
+
+## [4.5.0](https://github.com/auth0/java-jwt/tree/4.5.0) (2025-01-28)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.4.0...4.5.0)
+
+**Added**
+- Upgraded Plugin [\#711](https://github.com/auth0/java-jwt/pull/711) ([tanya732](https://github.com/tanya732))
+- Fix jackson vuln [\#705](https://github.com/auth0/java-jwt/pull/705) ([tanya732](https://github.com/tanya732))
+- Fix typo in example code [\#682](https://github.com/auth0/java-jwt/pull/682) ([kasperkarlsson](https://github.com/kasperkarlsson))
+- Remove dead README links [\#676](https://github.com/auth0/java-jwt/pull/676) ([jimmyjames](https://github.com/jimmyjames))
+- Fix typo on a comment in JWTCreator.java [\#672](https://github.com/auth0/java-jwt/pull/672) ([sgc109](https://github.com/sgc109))
+- Remove CircleCI [\#670](https://github.com/auth0/java-jwt/pull/670) ([jimmyjames](https://github.com/jimmyjames))
+- Empty string audience claim should be deserialized as empty string [\#663](https://github.com/auth0/java-jwt/pull/663) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- empty expected audience array should throw InvalidClaimException [\#679](https://github.com/auth0/java-jwt/pull/679) ([jimmyjames](https://github.com/jimmyjames))
+
+## [4.5.0](https://github.com/auth0/java-jwt/tree/4.5.0) (2025-01-22)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.4.0...4.5.0)
+
+**Added**
+- Fix jackson vuln [\#705](https://github.com/auth0/java-jwt/pull/705) ([tanya732](https://github.com/tanya732))
+- Fix typo in example code [\#682](https://github.com/auth0/java-jwt/pull/682) ([kasperkarlsson](https://github.com/kasperkarlsson))
+- Remove dead README links [\#676](https://github.com/auth0/java-jwt/pull/676) ([jimmyjames](https://github.com/jimmyjames))
+- Fix typo on a comment in JWTCreator.java [\#672](https://github.com/auth0/java-jwt/pull/672) ([sgc109](https://github.com/sgc109))
+- Remove CircleCI [\#670](https://github.com/auth0/java-jwt/pull/670) ([jimmyjames](https://github.com/jimmyjames))
+- Empty string audience claim should be deserialized as empty string [\#663](https://github.com/auth0/java-jwt/pull/663) ([jimmyjames](https://github.com/jimmyjames))
+
+**Fixed**
+- empty expected audience array should throw InvalidClaimException [\#679](https://github.com/auth0/java-jwt/pull/679) ([jimmyjames](https://github.com/jimmyjames))
+
+## [4.4.0](https://github.com/auth0/java-jwt/tree/4.4.0) (2023-03-31)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.3.0...4.4.0)
+
+**Changed**
+- Add support for passing json values for header and payload [\#643](https://github.com/auth0/java-jwt/pull/643) ([andrewrigas](https://github.com/andrewrigas))
+- Preserve insertion order for claims [\#656](https://github.com/auth0/java-jwt/pull/656) ([snago](https://github.com/snago))
+- Update Jackson to 2.14.2 [\#657](https://github.com/auth0/java-jwt/pull/657) ([jimmyjames](https://github.com/jimmyjames))
+
+## [4.3.0](https://github.com/auth0/java-jwt/tree/4.3.0) (2023-02-10)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.2.2...4.3.0)
+
+**Changed**
+- Improve JWT parse/decode performance [\#620](https://github.com/auth0/java-jwt/pull/620) ([noetro](https://github.com/noetro))
+
+**Fixed**
+- Fix for exp claim considered valid if equal to now [\#652](https://github.com/auth0/java-jwt/pull/652) ([jimmyjames](https://github.com/jimmyjames))
+- Code cleanup [\#642](https://github.com/auth0/java-jwt/pull/642) ([CodeDead](https://github.com/CodeDead))
+
+## [4.2.2](https://github.com/auth0/java-jwt/tree/4.2.2) (2023-01-11)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.2.1...4.2.2)
+
+This patch release does not contain any functional changes, but is being released using an updated signing key for verification as part of our commitment to best security practices.
+Please review [the README note for additional details.](https://github.com/auth0/java-jwt/blob/master/README.md)
+
+## [4.2.1](https://github.com/auth0/java-jwt/tree/4.2.1) (2022-10-24)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.2.0...4.2.1)
+
+**Security**
+- Use latest ship orb [\#634](https://github.com/auth0/java-jwt/pull/634) ([jimmyjames](https://github.com/jimmyjames))
+- Bump `com.fasterxml.jackson.core:jackson-databind` to 2.13.4.2 [\#630](https://github.com/auth0/java-jwt/pull/630) ([evansims](https://github.com/evansims))
+
+## [4.2.0](https://github.com/auth0/java-jwt/tree/4.2.0) (2022-10-19)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.1.0...4.2.0)
+
+**Changed**
+- Re-enable japicmp API diff checking [\#619](https://github.com/auth0/java-jwt/pull/619) ([jimmyjames](https://github.com/jimmyjames))
+- Update .shiprc to only update lib version in build.gradle [\#625](https://github.com/auth0/java-jwt/pull/625) ([jimmyjames](https://github.com/jimmyjames))
+- Optimise TokenUtils parsing [\#611](https://github.com/auth0/java-jwt/pull/611) ([noetro](https://github.com/noetro))
+- Update Circle Ship Orb configuration [\#616](https://github.com/auth0/java-jwt/pull/616) ([frederikprijck](https://github.com/frederikprijck))
+
+**Fixed**
+- Update Claim#asString documentation [\#615](https://github.com/auth0/java-jwt/pull/615) ([jimmyjames](https://github.com/jimmyjames))
+
+## [4.1.0](https://github.com/auth0/java-jwt/tree/4.1.0) (2022-10-06)
+[Full Changelog](https://github.com/auth0/java-jwt/compare/4.0.0...4.1.0)
+
+**⚠️ BREAKING CHANGES**
+- Make JWT constants final values [\#604](https://github.com/auth0/java-jwt/pull/604) ([poovamraj](https://github.com/poovamraj))
+
+**Added**
+- Add integration with our Shipping orb [\#612](https://github.com/auth0/java-jwt/pull/612) ([frederikprijck](https://github.com/frederikprijck))
+- Add Ship CLI support [\#609](https://github.com/auth0/java-jwt/pull/609) ([jimmyjames](https://github.com/jimmyjames))
+- Provide straightforward example for JWKS [\#600](https://github.com/auth0/java-jwt/pull/600) ([poovamraj](https://github.com/poovamraj))
+
+**Changed**
+- Update to gradle 6.9.2 [\#608](https://github.com/auth0/java-jwt/pull/608) ([jimmyjames](https://github.com/jimmyjames))
+- Update OSS plugin to latest [\#607](https://github.com/auth0/java-jwt/pull/607) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-3466] Upgrade Codecov [\#595](https://github.com/auth0/java-jwt/pull/595) ([evansims](https://github.com/evansims))
+- Update README.md [\#590](https://github.com/auth0/java-jwt/pull/590) ([poovamraj](https://github.com/poovamraj))
+
+**Fixed**
+- Check for null token before splitting [\#606](https://github.com/auth0/java-jwt/pull/606) ([jimmyjames](https://github.com/jimmyjames))
+- [SDK-3816] Update docs for verification thread-safety [\#605](https://github.com/auth0/java-jwt/pull/605) ([jimmyjames](https://github.com/jimmyjames))
+
 ## [4.0.0](https://github.com/auth0/java-jwt/tree/4.0.0) (2022-06-24)
 [Full Changelog](https://github.com/auth0/java-jwt/compare/3.19.2...4.0.0)
 
